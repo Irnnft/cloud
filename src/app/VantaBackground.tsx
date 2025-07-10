@@ -2,6 +2,9 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
+// Impor 'three' sebagai type-only import untuk mendapatkan definisinya.
+// Ini tidak akan masuk ke dalam bundle JavaScript akhir.
+import type * as Three from 'three';
 
 // Mendefinisikan tipe spesifik untuk instance efek Vanta
 interface VantaEffect {
@@ -12,7 +15,8 @@ interface VantaEffect {
 interface VantaObject {
   CLOUDS: (options: {
     el: HTMLElement | null;
-    THREE: any; // THREE.js dimuat secara global, jadi 'any' di sini bisa diterima
+    // FIX: Menggunakan tipe 'Three' yang diimpor, bukan 'any'
+    THREE: typeof Three;
     mouseControls?: boolean;
     touchControls?: boolean;
     gyroControls?: boolean;
@@ -32,7 +36,8 @@ interface VantaObject {
 declare global {
   interface Window {
     VANTA: VantaObject;
-    THREE: any;
+    // FIX: Menggunakan tipe 'Three' yang diimpor, bukan 'any'
+    THREE: typeof Three;
   }
 }
 
@@ -42,8 +47,8 @@ const VantaBackground = () => {
   useEffect(() => {
     let vantaEffect: VantaEffect | null = null;
 
-    // Cek apakah VANTA sudah dimuat di window sebelum menggunakannya
-    if (window.VANTA && vantaRef.current) {
+    // Cek apakah VANTA dan THREE sudah dimuat di window sebelum menggunakannya
+    if (window.VANTA && window.THREE && vantaRef.current) {
       vantaEffect = window.VANTA.CLOUDS({
         el: vantaRef.current,
         THREE: window.THREE,
