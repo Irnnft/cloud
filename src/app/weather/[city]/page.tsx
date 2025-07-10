@@ -2,7 +2,7 @@
 "use client";
 
 import {
-  Sun, Cloud, CloudSun, CloudRain, CloudLightning, Snowflake, Wind, Droplets, Thermometer, Calendar, Clock, ArrowLeft, AlertTriangle
+  Sun, Cloud, CloudSun, CloudRain, CloudLightning, Snowflake, Wind, Droplets, Thermometer, ArrowLeft, AlertTriangle
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
